@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Loyalty & Rewards Program</title>
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+  <div class="topbar">
+    <div class="brand">HOTEL MANAGEMENT SYSTEM · PHASE 2</div>
+    <div class="tabs">
+      <a class="tab" href="/">HOUSEKEEPING & ROOM STATUS</a>
+      <a class="tab active" href="/loyalty">LOYALTY & REWARDS PROGRAM</a>
+      <a class="tab" href="/staff">STAFF & ROLE MANAGEMENT</a>
+    </div>
+  </div>
+
+  <main class="container">
+    <section class="header-section">
+      <h1>Loyalty & Rewards Program</h1>
+      <p>Look up member profiles, manage points, and process reward redemptions</p>
+    </section>
+
+    <section class="loyalty-section">
+      <h3>MEMBER LOOKUP</h3>
+      <div class="lookup-row">
+        <div class="field">
+          <label for="memberIdInput">GUEST ID OR EMAIL ADDRESS</label>
+          <input type="text" id="memberIdInput" placeholder="G-10042" />
+        </div>
+        <div class="field">
+          <label for="lastNameInput">LAST NAME</label>
+          <input type="text" id="lastNameInput" placeholder="Thornton" />
+        </div>
+        <div class="field button-field">
+          <label>&nbsp;</label>
+          <button id="lookupMemberBtn" class="primary-btn full-btn" type="button">LOOK UP MEMBER</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="loyalty-section">
+      <h3>MEMBER PROFILE</h3>
+      <div id="memberProfileContainer"></div>
+    </section>
+
+    <section class="loyalty-section">
+      <h3>POINTS ACTIVITY HISTORY</h3>
+      <div id="activityHistoryContainer"></div>
+    </section>
+
+    <section class="loyalty-section">
+      <h3>REDEEM POINTS</h3>
+      <div class="reward-grid" id="rewardGrid"></div>
+
+      <form id="redeemForm" class="redeem-form">
+        <div class="row">
+          <div class="field">
+            <label for="reservationId">APPLY TO RESERVATION ID</label>
+            <input type="text" id="reservationId" placeholder="e.g. RES-20481" />
+          </div>
+          <div class="field">
+            <label for="redemptionNotes">REDEMPTION NOTES</label>
+            <input type="text" id="redemptionNotes" placeholder="e.g. Guest's birthday, confirmed with supervisor" />
+          </div>
+        </div>
+
+        <div class="actions">
+          <button type="submit" class="primary-btn">PROCESS REDEMPTION</button>
+          <button type="button" id="addPointsBtn" class="secondary-btn">ADD POINTS MANUALLY</button>
+        </div>
+      </form>
+    </section>
+  </main>
+
+  <script src="/static/script.js"></script>
+</body>
+</html>

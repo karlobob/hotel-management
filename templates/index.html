@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hotel Management System - Phase 2</title>
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+  <div class="topbar">
+    <div class="brand">HOTEL MANAGEMENT SYSTEM · PHASE 2</div>
+    <div class="tabs">
+      <a class="tab active" href="/">HOUSEKEEPING & ROOM STATUS</a>
+      <a class="tab" href="/loyalty">LOYALTY & REWARDS PROGRAM</a>
+      <a class="tab" href="/staff">STAFF & ROLE MANAGEMENT</a>
+    </div>
+  </div>
+
+  <main class="container">
+    <section class="header-section">
+      <h1>Housekeeping & Room Status</h1>
+      <p>Monitor room cleanliness, assign tasks, and update status across all floors</p>
+    </section>
+
+    <section class="summary-cards" id="summaryCards"></section>
+
+    <section class="legend">
+      <span><i class="dot clean"></i> Clean</span>
+      <span><i class="dot dirty"></i> Dirty</span>
+      <span><i class="dot progress"></i> In Progress</span>
+      <span><i class="dot occupied"></i> Occupied</span>
+      <span><i class="dot vacant"></i> Vacant</span>
+    </section>
+
+    <section class="grid-section">
+      <h3>ROOM STATUS GRID — CLICK A ROOM TO UPDATE</h3>
+      <div class="room-grid" id="roomGrid"></div>
+    </section>
+
+    <section class="form-section">
+      <h2>Update Room Status</h2>
+      <p>Select a room from the grid above to update its status and assign a housekeeper.</p>
+
+      <form id="statusForm">
+        <div class="row">
+          <div class="field">
+            <label for="roomSelect">ROOM NUMBER</label>
+            <select id="roomSelect">
+              <option value="">— Select a room —</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="housekeeperSelect">ASSIGN HOUSEKEEPER</label>
+            <select id="housekeeperSelect">
+              <option value="">— Select —</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="field">
+          <label>UPDATE STATUS</label>
+          <div class="status-buttons">
+            <button type="button" class="status-btn" data-status="Clean">CLEAN & READY</button>
+            <button type="button" class="status-btn" data-status="Dirty">REQUIRES CLEANING</button>
+            <button type="button" class="status-btn" data-status="In Progress">IN PROGRESS</button>
+            <button type="button" class="status-btn" data-status="Occupied">OCCUPIED</button>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="prioritySelect">PRIORITY LEVEL</label>
+          <select id="prioritySelect">
+            <option value="Standard">Standard</option>
+            <option value="High">High</option>
+            <option value="Urgent">Urgent</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="notes">NOTES FOR HOUSEKEEPER</label>
+          <textarea id="notes" rows="5" placeholder="e.g. Guest requested extra towels, late checkout expected..."></textarea>
+        </div>
+
+        <div class="actions">
+          <button type="submit" class="primary-btn">UPDATE ROOM STATUS</button>
+          <button type="button" id="clearBtn" class="secondary-btn">CLEAR</button>
+        </div>
+      </form>
+    </section>
+  </main>
+
+  <script src="/static/script.js"></script>
+</body>
+</html>

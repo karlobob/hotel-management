@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Staff & Role Management</title>
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+  <div class="topbar">
+    <div class="brand">HOTEL MANAGEMENT SYSTEM · PHASE 2</div>
+    <div class="tabs">
+      <a class="tab" href="/">HOUSEKEEPING & ROOM STATUS</a>
+      <a class="tab" href="/loyalty">LOYALTY & REWARDS PROGRAM</a>
+      <a class="tab active" href="/staff">STAFF & ROLE MANAGEMENT</a>
+    </div>
+  </div>
+
+  <main class="container">
+    <section class="header-section">
+      <h1>Staff & Role Management</h1>
+      <p>Manage hotel staff accounts, assign roles, and configure system permissions</p>
+    </section>
+
+    <section class="staff-toolbar">
+      <div class="staff-filters">
+        <select id="departmentFilter">
+          <option value="All">All Departments</option>
+        </select>
+
+        <select id="roleFilter">
+          <option value="All">All Roles</option>
+        </select>
+      </div>
+
+      <button id="addStaffBtn" class="primary-btn">+ ADD NEW STAFF</button>
+    </section>
+
+    <section class="staff-table-section">
+      <table class="staff-table">
+        <thead>
+          <tr>
+            <th>STAFF MEMBER</th>
+            <th>EMPLOYEE ID</th>
+            <th>DEPARTMENT</th>
+            <th>ROLE</th>
+            <th>STATUS</th>
+            <th>LAST LOGIN</th>
+            <th>ACTIONS</th>
+          </tr>
+        </thead>
+        <tbody id="staffTableBody"></tbody>
+      </table>
+    </section>
+  </main>
+
+  <script src="/static/script.js"></script>
+</body>
+</html>
