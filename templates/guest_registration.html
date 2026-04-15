@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Guest Registration</title>
+  <link rel="stylesheet" href="/static/guest_registration.css" />
+</head>
+<body>
+  <div class="guest-topbar">
+    <div class="guest-brand-wrap">
+      <div class="guest-brand">ChiKarlo</div>
+      <div class="guest-sub-brand">HOTEL & RESIDENCES</div>
+    </div>
+    <div class="guest-header-right">Front Desk & Guest Service</div>
+  </div>
+
+  <div class="guest-nav">
+    <a href="/guest-registration" class="guest-tab active">GUEST REGISTRATION</a>
+    <a href="#" class="guest-tab">ROOM BOOKING</a>
+    <a href="#" class="guest-tab">CHECK-IN / CHECK-OUT</a>
+  </div>
+
+  <main class="guest-container">
+    <section class="guest-header-section">
+      <h1>Guest Registration</h1>
+      <p>Create a guest profile with personal details and stay preferences.</p>
+    </section>
+
+    <form id="guestRegistrationForm" class="guest-form">
+      <section class="guest-form-section">
+        <h3>PERSONAL INFORMATION</h3>
+
+        <div class="guest-row">
+          <div class="guest-field">
+            <label for="guestId">GUEST ID</label>
+            <input type="text" id="guestId" disabled placeholder="Auto-generated on registration" />
+          </div>
+          <div class="guest-field">
+            <label for="memberSince">MEMBER SINCE</label>
+            <input type="text" id="memberSince" disabled placeholder="Auto-generated on registration" />
+          </div>
+        </div>
+
+        <div class="guest-row">
+          <div class="guest-field">
+            <label for="firstName">FIRST NAME *</label>
+            <input type="text" id="firstName" placeholder="e.g. James" required />
+          </div>
+          <div class="guest-field">
+            <label for="lastName">LAST NAME *</label>
+            <input type="text" id="lastName" placeholder="e.g. Thornton" required />
+          </div>
+        </div>
+
+        <div class="guest-row">
+          <div class="guest-field">
+            <label for="email">EMAIL ADDRESS *</label>
+            <input type="email" id="email" placeholder="you@email.com" required />
+          </div>
+          <div class="guest-field">
+            <label for="phoneNumber">PHONE NUMBER</label>
+            <input type="text" id="phoneNumber" placeholder="+1 (416) 000-0000" />
+          </div>
+        </div>
+
+        <div class="guest-row">
+          <div class="guest-field">
+            <label for="dateOfBirth">DATE OF BIRTH</label>
+            <input type="date" id="dateOfBirth" />
+          </div>
+          <div class="guest-field">
+            <label for="passportId">PASSPORT / ID NUMBER</label>
+            <input type="text" id="passportId" placeholder="e.g. AB1234567" />
+          </div>
+        </div>
+      </section>
+
+      <section class="guest-form-section">
+        <h3>STAY PREFERENCES</h3>
+
+        <div class="guest-field">
+          <label>ROOM PREFERENCES</label>
+          <div class="guest-checkbox-group">
+            <label><input type="checkbox" id="highFloor" /> HIGH FLOOR</label>
+            <label><input type="checkbox" id="quietRoom" /> QUIET ROOM</label>
+            <label><input type="checkbox" id="featherFreePillows" /> FEATHER-FREE PILLOWS</label>
+            <label><input type="checkbox" id="accessibleRoom" /> ACCESSIBLE ROOM</label>
+            <label><input type="checkbox" id="kingBed" /> KING BED</label>
+          </div>
+        </div>
+
+        <div class="guest-field">
+          <label for="preferenceNotes">ADDITIONAL PREFERENCE NOTES</label>
+          <textarea id="preferenceNotes" rows="5" placeholder="Any special requests or preferences for your stay..."></textarea>
+        </div>
+      </section>
+
+      <div class="guest-actions">
+        <button type="submit" class="guest-primary-btn">CREATE ACCOUNT</button>
+        <button type="button" id="guestClearBtn" class="guest-secondary-btn">CLEAR</button>
+      </div>
+    </form>
+  </main>
+
+  <script src="/static/guest_registration.js"></script>
+</body>
+</html>

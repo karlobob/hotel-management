@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Loyalty & Rewards Program</title>
-  <link rel="stylesheet" href="/static/style.css" />
+  <link rel="stylesheet" href="/static/loyalty.css" />
 </head>
 <body>
   <div class="topbar">
@@ -22,7 +22,7 @@
       <p>Look up member profiles, manage points, and process reward redemptions</p>
     </section>
 
-    <section class="loyalty-section">
+    <section class="section-block">
       <h3>MEMBER LOOKUP</h3>
       <div class="lookup-row">
         <div class="field">
@@ -35,26 +35,26 @@
         </div>
         <div class="field button-field">
           <label>&nbsp;</label>
-          <button id="lookupMemberBtn" class="primary-btn full-btn" type="button">LOOK UP MEMBER</button>
+          <button id="lookupMemberBtn" class="primary-btn" type="button">LOOK UP MEMBER</button>
         </div>
       </div>
     </section>
 
-    <section class="loyalty-section">
+    <section class="section-block">
       <h3>MEMBER PROFILE</h3>
       <div id="memberProfileContainer"></div>
     </section>
 
-    <section class="loyalty-section">
+    <section class="section-block">
       <h3>POINTS ACTIVITY HISTORY</h3>
       <div id="activityHistoryContainer"></div>
     </section>
 
-    <section class="loyalty-section">
+    <section class="section-block">
       <h3>REDEEM POINTS</h3>
       <div class="reward-grid" id="rewardGrid"></div>
 
-      <form id="redeemForm" class="redeem-form">
+      <form id="redeemForm">
         <div class="row">
           <div class="field">
             <label for="reservationId">APPLY TO RESERVATION ID</label>
@@ -74,6 +74,6 @@
     </section>
   </main>
 
-  <script src="/static/script.js"></script>
+  <script src="/static/loyalty.js"></script>
 </body>
 </html>
