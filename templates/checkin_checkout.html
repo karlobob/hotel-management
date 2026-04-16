@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Check-In / Check-Out</title>
+  <link rel="stylesheet" href="/static/checkin_checkout.css" />
+</head>
+<body>
+  <!-- Top navigation bar -->
+  <div class="topbar">
+    <div class="brand">HOTEL MANAGEMENT SYSTEM · PHASE 2</div>
+    <div class="tabs">
+      <a class="tab" href="/guest-registration">GUEST REGISTRATION</a>
+      <a class="tab" href="/room-booking">ROOM BOOKING</a>
+      <a class="tab active" href="/checkin-checkout">CHECK-IN / CHECK-OUT</a>
+      <a class="tab" href="/housekeeping">HOUSEKEEPING & ROOM STATUS</a>
+      <a class="tab" href="/loyalty">LOYALTY & REWARDS PROGRAM</a>
+      <a class="tab" href="/staff">STAFF & ROLE MANAGEMENT</a>
+    </div>
+  </div>
+
+  <!-- Main content container -->
+  <main class="container">
+    <!-- Page header -->
+    <section class="header-section">
+      <h1>Check-In / Check-Out</h1>
+      <p>Manage guest arrivals, room assignments, reservation status, and departures.</p>
+    </section>
+
+    <!-- Reservation Lookup Section -->
+    <section class="form-section">
+      <h3>RESERVATION LOOKUP</h3>
+
+      <div class="row">
+        <div class="field">
+          <label for="lookupReservationId">RESERVATION ID *</label>
+          <input type="text" id="lookupReservationId" placeholder="e.g. RES-20481" />
+        </div>
+
+        <div class="field">
+          <label for="lookupGuestId">GUEST ID *</label>
+          <input type="text" id="lookupGuestId" placeholder="e.g. G-10042" />
+        </div>
+      </div>
+
+      <button type="button" id="lookupBtn" class="primary-btn">LOOK UP RESERVATION</button>
+    </section>
+
+    <!-- Reservation Record Section -->
+    <section class="form-section">
+      <h3>RESERVATION RECORD</h3>
+
+      <div class="row">
+        <div class="field">
+          <label for="reservationId">RESERVATION ID</label>
+          <input type="text" id="reservationId" disabled placeholder="—" />
+        </div>
+
+        <div class="field">
+          <label for="createdAt">CREATED AT</label>
+          <input type="text" id="createdAt" disabled placeholder="—" />
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="field">
+          <label for="guestId">GUEST ID</label>
+          <input type="text" id="guestId" disabled placeholder="—" />
+        </div>
+
+        <div class="field">
+          <label for="roomId">ROOM ID *</label>
+          <input type="text" id="roomId" disabled placeholder="Assign on check-in" />
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="field">
+          <label for="checkInDate">CHECK-IN DATE</label>
+          <input type="date" id="checkInDate" />
+        </div>
+
+        <div class="field">
+          <label for="checkOutDate">CHECK-OUT DATE</label>
+          <input type="date" id="checkOutDate" />
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="field">
+          <label for="roomsAvailable">ROOMS AVAILABLE</label>
+          <input type="text" id="roomsAvailable" disabled placeholder="e.g. 8" />
+        </div>
+
+        <div class="field">
+          <label for="reservationStatus">RESERVATION STATUS</label>
+          <select id="reservationStatus">
+            <option value="">— Select Status —</option>
+            <option value="Pending">Pending</option>
+            <option value="Confirmed">Confirmed</option>
+            <option value="Checked-In">Checked-In</option>
+            <option value="Checked-Out">Checked-Out</option>
+            <option value="Cancelled">Cancelled</option>
+          </select>
+        </div>
+      </div>
+    </section>
+
+    <!-- Status Overview Section -->
+    <section class="form-section">
+      <h3>STATUS OVERVIEW</h3>
+
+      <div class="status-overview" id="statusOverview">
+        <span class="status-badge pending">PENDING</span>
+        <span class="status-text">Guest: — · Room: — · Check-in: — · Check-out: —</span>
+      </div>
+    </section>
+
+    <!-- Action Buttons -->
+    <div class="actions">
+      <button type="button" id="checkinBtn" class="primary-btn">COMPLETE CHECK-IN</button>
+      <button type="button" id="checkoutBtn" class="secondary-btn">PROCESS CHECK-OUT</button>
+      <button type="button" id="resetBtn" class="outline-btn">RESET</button>
+    </div>
+
+    <!-- Message display area -->
+    <div id="messageArea"></div>
+  </main>
+
+  <script src="/static/checkin_checkout.js"></script>
+</body>
+</html>

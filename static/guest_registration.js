@@ -29,7 +29,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
     fetch("/api/guest-registration/create", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json"
+      },
       body: JSON.stringify(payload)
     })
       .then(response => response.json())
@@ -37,10 +39,14 @@ document.addEventListener("DOMContentLoaded", function () {
         if (data.success) {
           document.getElementById("guestId").value = data.guestId;
           document.getElementById("memberSince").value = data.memberSince;
-          showGuestMessage(`Guest account created successfully. Guest ID: ${data.guestId}`);
+          showGuestMessage("Guest account created successfully and saved to database.");
         } else {
           alert("Unable to create guest account.");
         }
+      })
+      .catch(error => {
+        console.error("Guest registration error:", error);
+        alert("Something went wrong.");
       });
   });
 
@@ -62,14 +68,18 @@ function loadGuestRegistrationMeta() {
 
 function showGuestMessage(message) {
   removeGuestMessage();
+
   const msg = document.createElement("div");
   msg.className = "guest-message";
   msg.id = "guestMessage";
   msg.textContent = message;
+
   document.getElementById("guestRegistrationForm").appendChild(msg);
 }
 
 function removeGuestMessage() {
   const existing = document.getElementById("guestMessage");
-  if (existing) existing.remove();
+  if (existing) {
+    existing.remove();
+  }
 }

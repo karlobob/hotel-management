@@ -1,3 +1,35 @@
+.topbar {
+  background: #ffffff;
+  border-bottom: 1px solid #ddd3c7;
+  padding: 14px 20px 0;
+}
+
+.brand {
+  font-size: 18px;
+  color: #7b8696;
+  margin-bottom: 14px;
+}
+
+.tabs {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.tab {
+  text-decoration: none;
+  color: #748096;
+  font-size: 14px;
+  padding: 12px 22px;
+  border-bottom: 3px solid transparent;
+  font-weight: 600;
+}
+
+.tab.active {
+  color: #e56a25;
+  border-bottom-color: #e56a25;
+}
+
 * { box-sizing: border-box; }
 
 body {

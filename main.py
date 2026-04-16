@@ -16,6 +16,14 @@ from loyalty import (
 )
 from staff import fetch_staff, add_staff, edit_staff_role, toggle_staff_status
 from guest_registration import get_guest_meta, create_guest
+from room_booking import get_booking_meta, get_available_rooms, create_reservation
+# Import check-in/check-out functions
+from checkin_checkout import (
+    lookup_reservation,
+    process_checkin,
+    process_checkout,
+    get_rooms_available_count
+)
 
 PORT = 8000
 
@@ -45,6 +53,10 @@ class CustomHandler(http.server.SimpleHTTPRequestHandler):
             self.path = "/templates/housekeeping.html"
             return http.server.SimpleHTTPRequestHandler.do_GET(self)
 
+        if parsed.path == "/housekeeping":
+            self.path = "/templates/housekeeping.html"
+            return http.server.SimpleHTTPRequestHandler.do_GET(self)
+
         if parsed.path == "/loyalty":
             self.path = "/templates/loyalty.html"
             return http.server.SimpleHTTPRequestHandler.do_GET(self)
@@ -56,6 +68,14 @@ class CustomHandler(http.server.SimpleHTTPRequestHandler):
         if parsed.path == "/guest-registration":
             self.path = "/templates/guest_registration.html"
             return http.server.SimpleHTTPRequestHandler.do_GET(self)
+
+        if parsed.path == "/room-booking":
+            self.path = "/templates/room_booking.html"
+            return http.server.SimpleHTTPRequestHandler.do_GET(self)
+
+        if parsed.path == "/api/room-booking/meta":
+            self.send_json(get_booking_meta())
+            return
 
         # API: Get all data for frontend
         if parsed.path == "/api/data":
@@ -74,6 +94,11 @@ class CustomHandler(http.server.SimpleHTTPRequestHandler):
             last_name = params.get("lastName", [""])[0]
             self.send_json(lookup_member(lookup_value, last_name))
             return
+
+        # Serve the Check-In / Check-Out page
+        if parsed.path == "/checkin-checkout":
+            self.path = "/templates/checkin_checkout.html"
+            return http.server.SimpleHTTPRequestHandler.do_GET(self)
 
         return http.server.SimpleHTTPRequestHandler.do_GET(self)
 
@@ -126,6 +151,45 @@ class CustomHandler(http.server.SimpleHTTPRequestHandler):
         if parsed.path == "/api/guest-registration/create":
             data = read_json_body(self)
             self.send_json(create_guest(data))
+            return
+
+        # Room booking
+        if parsed.path == "/api/room-booking/availability":
+            data = read_json_body(self)
+            self.send_json(get_available_rooms(data))
+            return
+
+        if parsed.path == "/api/room-booking/create":
+            data = read_json_body(self)
+            self.send_json(create_reservation(data))
+            return
+
+        # API: Look up a reservation for check-in/check-out
+        if parsed.path == "/api/checkin-checkout/lookup":
+            data = read_json_body(self)
+            self.send_json(lookup_reservation(data))
+            return
+
+        # API: Process guest check-in
+        if parsed.path == "/api/checkin-checkout/checkin":
+            data = read_json_body(self)
+            result = process_checkin(data)
+            status = 200 if result.get("success") else 400
+            self.send_json(result, status=status)
+            return
+
+        # API: Process guest check-out
+        if parsed.path == "/api/checkin-checkout/checkout":
+            data = read_json_body(self)
+            result = process_checkout(data)
+            status = 200 if result.get("success") else 400
+            self.send_json(result, status=status)
+            return
+
+        # API: Get available rooms count for check-in
+        if parsed.path == "/api/checkin-checkout/rooms-available":
+            data = read_json_body(self)
+            self.send_json(get_rooms_available_count(data))
             return
 
         self.send_json({"success": False, "message": "Unknown endpoint."}, status=404)

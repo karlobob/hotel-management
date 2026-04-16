@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Room Booking</title>
+  <link rel="stylesheet" href="/static/room_booking.css" />
+</head>
+<body>
+  <div class="topbar">
+    <div class="brand">HOTEL MANAGEMENT SYSTEM · PHASE 2</div>
+    <div class="tabs">
+      <a class="tab" href="/guest-registration">GUEST REGISTRATION</a>
+      <a class="tab active" href="/room-booking">ROOM BOOKING</a>
+      <a class="tab" href="/checkin-checkout">CHECK-IN / CHECK-OUT</a>
+      <a class="tab" href="/housekeeping">HOUSEKEEPING & ROOM STATUS</a>
+      <a class="tab" href="/loyalty">LOYALTY & REWARDS PROGRAM</a>
+      <a class="tab" href="/staff">STAFF & ROLE MANAGEMENT</a>
+    </div>
+  </div>
+
+  <main class="container">
+    <section class="header-section">
+      <h1>Room Booking</h1>
+      <p>Select dates, choose a room type, and confirm a reservation.</p>
+    </section>
+
+    <form id="roomBookingForm">
+      <section class="booking-section">
+        <h3>STEP 1 — GUEST & DATES</h3>
+
+        <div class="row">
+          <div class="field">
+            <label for="guestId">GUEST ID *</label>
+            <input type="text" id="guestId" placeholder="e.g. G-10042" required />
+          </div>
+
+          <div class="field">
+            <label for="numberOfGuests">NUMBER OF GUESTS</label>
+            <input type="number" id="numberOfGuests" placeholder="e.g. 2" min="1" />
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="field">
+            <label for="checkInDate">CHECK-IN DATE *</label>
+            <input type="date" id="checkInDate" required />
+          </div>
+
+          <div class="field">
+            <label for="checkOutDate">CHECK-OUT DATE *</label>
+            <input type="date" id="checkOutDate" required />
+          </div>
+        </div>
+      </section>
+
+      <section class="booking-section">
+        <h3>STEP 2 — SELECT ROOM TYPE</h3>
+
+        <div class="room-type-grid">
+          <div class="room-type-card" data-type="Standard" data-rate="120">
+            <div class="room-title">STANDARD SINGLE</div>
+            <div class="room-rate">\$120 / NIGHT</div>
+            <div class="room-meta">1 QUEEN BED · MAX 2 GUESTS</div>
+          </div>
+
+          <div class="room-type-card" data-type="Deluxe" data-rate="180">
+            <div class="room-title">DELUXE DOUBLE</div>
+            <div class="room-rate">\$180 / NIGHT</div>
+            <div class="room-meta">2 QUEEN BEDS · MAX 4 GUESTS</div>
+          </div>
+
+          <div class="room-type-card" data-type="Suite" data-rate="320">
+            <div class="room-title">EXECUTIVE SUITE</div>
+            <div class="room-rate">\$320 / NIGHT</div>
+            <div class="room-meta">1 KING BED · MAX 2 GUESTS</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="booking-section">
+        <h3>STEP 3 — CONFIRM RESERVATION</h3>
+
+        <div class="row">
+          <div class="field">
+            <label for="reservationId">RESERVATION ID</label>
+            <input type="text" id="reservationId" disabled placeholder="Auto-generated on confirm" />
+          </div>
+
+          <div class="field">
+            <label for="createdAt">CREATED AT</label>
+            <input type="text" id="createdAt" disabled placeholder="Auto-generated on confirm" />
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="field">
+            <label for="roomsAvailable">ROOMS AVAILABLE</label>
+            <input type="text" id="roomsAvailable" disabled placeholder="Updates on selection" />
+          </div>
+
+          <div class="field">
+            <label for="status">STATUS</label>
+            <select id="status">
+              <option value="Pending">Pending</option>
+              <option value="Confirmed">Confirmed</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="actions">
+          <button type="submit" class="primary-btn">CONFIRM RESERVATION</button>
+          <button type="button" id="clearBookingBtn" class="secondary-btn">CLEAR</button>
+        </div>
+      </section>
+    </form>
+  </main>
+
+  <script src="/static/room_booking.js"></script>
+</body>
+</html>
