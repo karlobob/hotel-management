@@ -6,10 +6,14 @@
 # 3. Processing check-out (updating status, freeing room)
 # 4. Counting available rooms
 
-from database import get_connection
+#from database import get_connection
+from hotel.services.database import get_connection
 from datetime import datetime
 
 
+# This function retrieves the current date formatted as "YYYY-MM-DD".
+# It is used to provide a default date value for check-in or check-out operations
+# so that the system always references today's date when no specific date is given.
 def get_today_date():
     """
     Return today's date in YYYY-MM-DD format.
@@ -18,6 +22,12 @@ def get_today_date():
     return datetime.now().strftime("%Y-%m-%d")
 
 
+# This function searches the database for a reservation matching the provided
+# reservation ID and guest ID. It validates that both IDs are supplied, queries
+# the reservations table, and returns the full reservation details (room type,
+# dates, status, etc.) if a match is found, or an error message if not.
+# It is used when a front-desk agent needs to pull up a guest's reservation
+# before performing a check-in or check-out.
 def lookup_reservation(data):
     """
     Look up a reservation by reservation_id and guest_id.
@@ -66,6 +76,10 @@ def lookup_reservation(data):
     }
 
 
+# This function counts the number of rooms that are currently available
+# (i.e., have a status of 'Clean') for a specified room type. It queries
+# the rooms table and returns the integer count. It is used internally
+# by other functions and by the UI to display real-time room availability.
 def count_available_rooms_by_type(room_type):
     """
     Count how many rooms are available (status = 'Clean') for a room type.
@@ -83,6 +97,10 @@ def count_available_rooms_by_type(room_type):
     return row["count"] if row else 0
 
 
+# This function fetches a single available room number for a given room type.
+# It looks for rooms with a status of 'Clean' and returns the first match.
+# If no rooms are available, it returns None. This is called during the
+# check-in process to determine which specific room to assign to the guest.
 def get_available_room(room_type):
     """
     Get one available room number for the specified room type.
@@ -101,6 +119,13 @@ def get_available_room(room_type):
     return row["number"] if row else None
 
 
+# This function handles the full check-in workflow for a guest. It validates
+# the required reservation and guest IDs, finds an available room of the
+# requested type using get_available_room(), then performs two database updates:
+# it assigns the room to the reservation and sets its status to 'Checked-In',
+# and it marks the room's status as 'Occupied'. On success it returns the
+# assigned room number; on failure (missing IDs or no available rooms) it
+# returns an appropriate error message.
 def process_checkin(data):
     """
     Process guest check-in:
@@ -155,6 +180,11 @@ def process_checkin(data):
     }
 
 
+# This function handles the full check-out workflow for a guest. It validates
+# the required reservation and guest IDs, then updates the reservation's status
+# to 'Checked-Out'. If a room was assigned to the reservation, it also sets
+# that room's status to 'Dirty' to signal that housekeeping is needed before
+# the room can be made available again. It returns a success or error message.
 def process_checkout(data):
     """
     Process guest check-out:
@@ -198,6 +228,11 @@ def process_checkout(data):
     }
 
 
+# This function serves as an API-facing wrapper around count_available_rooms_by_type().
+# It extracts the room type from the incoming request data, calls the counting
+# function, and returns the result in a standardized response dictionary.
+# It is used by the front-end form to display how many rooms of a particular
+# type are still available for assignment.
 def get_rooms_available_count(data):
     """
     Return count of available rooms for a given room type.

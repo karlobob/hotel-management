@@ -5,7 +5,8 @@
 # 2. counting rooms available
 # 3. saving a booking into SQLite
 
-from database import get_connection
+#from database import get_connection
+from hotel.services.database import get_connection
 from datetime import datetime
 
 

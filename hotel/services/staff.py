@@ -1,6 +1,8 @@
-from database import get_connection
+#from database import get_connection
+from hotel.services.database import get_connection
 
 
+# Retrieves all staff members from the database, ordered by name, and returns them as a list of dictionaries.
 def fetch_staff():
     conn = get_connection()
     rows = conn.execute("SELECT * FROM staff_members ORDER BY name").fetchall()
@@ -8,6 +10,7 @@ def fetch_staff():
     return [dict(row) for row in rows]
 
 
+# Adds a new staff member by auto-generating an employee ID and inserting their details into the database.
 def add_staff(data):
     conn = get_connection()
 
@@ -42,6 +45,7 @@ def add_staff(data):
     return {"success": True}
 
 
+# Updates the role of an existing staff member identified by their employee ID.
 def edit_staff_role(data):
     conn = get_connection()
     conn.execute("""
@@ -57,6 +61,7 @@ def edit_staff_role(data):
     return {"success": True}
 
 
+# Toggles a staff member's status between "Active" and "Inactive" based on their current status.
 def toggle_staff_status(data):
     conn = get_connection()
     member = conn.execute("""

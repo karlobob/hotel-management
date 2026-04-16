@@ -95,7 +95,6 @@ def init_db():
         )
     """)
 
-    # Guest Registration table
     cur.execute("""
         CREATE TABLE IF NOT EXISTS guests (
             guest_id TEXT PRIMARY KEY,
@@ -115,8 +114,6 @@ def init_db():
         )
     """)
 
-    # Reservations table
-    # This stores room bookings and check-in/check-out info
     cur.execute("""
         CREATE TABLE IF NOT EXISTS reservations (
             reservation_id TEXT PRIMARY KEY,
@@ -133,76 +130,4 @@ def init_db():
     """)
 
     conn.commit()
-    seed_data(conn)
     conn.close()
-
-
-def seed_data(conn):
-    cur = conn.cursor()
-
-    cur.execute("DELETE FROM rooms")
-    cur.executemany("""
-        INSERT INTO rooms (number, type, status, priority, housekeeper, notes)
-        VALUES (?, ?, ?, ?, ?, ?)
-    """, [
-        ("101", "Standard", "Clean", "Standard", "", ""),
-        ("102", "Standard", "Dirty", "Standard", "", ""),
-        ("103", "Deluxe", "Occupied", "Standard", "", ""),
-        ("104", "Deluxe", "In Progress", "Standard", "", ""),
-        ("105", "Suite", "Clean", "Standard", "", "")
-    ])
-
-    cur.execute("SELECT COUNT(*) AS count FROM housekeepers")
-    if cur.fetchone()["count"] == 0:
-        cur.executemany("INSERT INTO housekeepers (name) VALUES (?)", [
-            ("Emma Johnson",),
-            ("Liam Smith",),
-            ("Olivia Brown",),
-            ("Noah Davis",)
-        ])
-
-    cur.execute("SELECT COUNT(*) AS count FROM loyalty_members")
-    if cur.fetchone()["count"] == 0:
-        cur.execute("""
-            INSERT INTO loyalty_members (
-                id, email, last_name, first_name, full_name, tier, enrolled,
-                available_points, lifetime_stays, nights_this_year, next_tier, next_tier_points
-            )
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-        """, (
-            "G-10042",
-            "james.thornton@email.com",
-            "Thornton",
-            "James",
-            "James Thornton",
-            "Gold Member",
-            "March 2021",
-            14850,
-            23,
-            18,
-            "Platinum",
-            20000
-        ))
-
-    cur.execute("SELECT COUNT(*) AS count FROM rewards")
-    if cur.fetchone()["count"] == 0:
-        cur.executemany("""
-            INSERT INTO rewards (id, title, points, description)
-            VALUES (?, ?, ?, ?)
-        """, [
-            ("reward-1", "Complimentary Breakfast", 500, "Full buffet breakfast for 1 guest"),
-            ("reward-2", "Room Upgrade", 2000, "Upgrade to next available room tier"),
-            ("reward-3", "Spa Access – Full Day", 3500, "Full-day access for 1 guest")
-        ])
-
-    cur.execute("SELECT COUNT(*) AS count FROM staff_members")
-    if cur.fetchone()["count"] == 0:
-        cur.executemany("""
-            INSERT INTO staff_members (employee_id, name, department, role, status, last_login)
-            VALUES (?, ?, ?, ?, ?, ?)
-        """, [
-            ("EMP-0012", "Amanda Lewis", "Management", "Administrator", "Active", "Today, 09:14"),
-            ("EMP-0031", "Robert Kim", "Front Desk", "Manager", "Active", "Today, 08:42")
-        ])
-
-    conn.commit()

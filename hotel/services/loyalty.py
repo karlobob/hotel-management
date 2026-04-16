@@ -1,6 +1,8 @@
-from database import get_connection
+#from database import get_connection
+from hotel.services.database import get_connection
 
 
+# Fetches all loyalty members with their activity history from the database, returning a formatted list of member details.
 def fetch_loyalty_members():
     conn = get_connection()
     members = conn.execute("SELECT * FROM loyalty_members ORDER BY full_name").fetchall()
@@ -43,6 +45,7 @@ def fetch_loyalty_members():
     return result
 
 
+# Retrieves all available rewards from the database, ordered by title, and returns them as a list of dictionaries.
 def fetch_rewards():
     conn = get_connection()
     rows = conn.execute("SELECT * FROM rewards ORDER BY title").fetchall()
@@ -50,6 +53,7 @@ def fetch_rewards():
     return [dict(row) for row in rows]
 
 
+# Looks up a loyalty member by matching their ID or email and last name, returning the member's details or None.
 def lookup_member(lookup_value, last_name):
     members = fetch_loyalty_members()
     lookup_lower = lookup_value.strip().lower()
@@ -66,6 +70,7 @@ def lookup_member(lookup_value, last_name):
     return {"member": member}
 
 
+# Processes a reward redemption by deducting points from the member's balance and logging the transaction in activity history.
 def redeem_reward(data):
     member_id = data.get("memberId", "")
     reward_id = data.get("rewardId", "")
@@ -110,6 +115,7 @@ def redeem_reward(data):
     return {"success": True}
 
 
+# Adds points manually to a member's balance and records the adjustment as an entry in their activity history.
 def add_points_manually(data):
     member_id = data.get("memberId", "")
     points_to_add = int(data.get("points", 0))

@@ -28,6 +28,9 @@ from checkin_checkout import (
 PORT = 8000
 
 
+# Aggregates and returns all core data (rooms, housekeepers, loyalty members, rewards, and staff)
+# as a single dictionary. This serves as the main data payload for the frontend to initialize
+# all dashboard views in one API call.
 def get_all_data():
     return {
         "rooms": fetch_all_rooms(),
@@ -38,13 +41,27 @@ def get_all_data():
     }
 
 
+# Reads and parses the JSON body from an incoming HTTP request.
+# It extracts the content length from the headers, reads the raw bytes,
+# decodes them to a string, and returns the parsed JSON object.
+# Returns an empty dictionary if the body is empty.
 def read_json_body(handler):
     content_length = int(handler.headers.get("Content-Length", 0))
     body = handler.rfile.read(content_length).decode("utf-8")
     return json.loads(body) if body else {}
 
 
+# Custom HTTP request handler that extends SimpleHTTPRequestHandler.
+# It routes incoming GET and POST requests to the appropriate HTML pages
+# or API endpoints for housekeeping, loyalty, staff, guest registration,
+# room booking, and check-in/check-out operations.
 class CustomHandler(http.server.SimpleHTTPRequestHandler):
+
+    # Handles all incoming GET requests.
+    # Routes URL paths to their corresponding HTML template pages
+    # or processes API GET endpoints for retrieving data such as
+    # booking metadata, guest registration metadata, loyalty member lookups,
+    # and the main data payload for the frontend dashboard.
     def do_GET(self):
         parsed = urlparse(self.path)
 
@@ -102,6 +119,12 @@ class CustomHandler(http.server.SimpleHTTPRequestHandler):
 
         return http.server.SimpleHTTPRequestHandler.do_GET(self)
 
+    # Handles all incoming POST requests.
+    # Routes each API endpoint to its corresponding backend function for
+    # processing data modifications such as room updates, reward redemptions,
+    # point adjustments, staff management, guest creation, room booking,
+    # and check-in/check-out operations. Returns appropriate HTTP status
+    # codes based on operation success or failure.
     def do_POST(self):
         parsed = urlparse(self.path)
 
@@ -194,6 +217,10 @@ class CustomHandler(http.server.SimpleHTTPRequestHandler):
 
         self.send_json({"success": False, "message": "Unknown endpoint."}, status=404)
 
+    # Sends a JSON response back to the client.
+    # Serializes the provided data dictionary into JSON format, sets the
+    # appropriate HTTP status code and response headers (content type,
+    # content length, and cache control), and writes the response body.
     def send_json(self, data, status=200):
         response = json.dumps(data).encode("utf-8")
         self.send_response(status)
@@ -203,6 +230,9 @@ class CustomHandler(http.server.SimpleHTTPRequestHandler):
         self.end_headers()
         self.wfile.write(response)
 
+    # Overrides the default end_headers method to inject a Cache-Control header
+    # into every response, ensuring the browser never caches stale data
+    # and always fetches the latest content from the server.
     def end_headers(self):
         self.send_header("Cache-Control", "no-store, no-cache, must-revalidate")
         super().end_headers()

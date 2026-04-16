@@ -1,4 +1,5 @@
-from database import get_connection, get_today_member_since, generate_guest_id
+#from database import get_connection, get_today_member_since, generate_guest_id
+from hotel.services.database import get_connection, get_today_member_since, generate_guest_id
 
 
 def get_guest_meta():
